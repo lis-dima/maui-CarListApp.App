@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.Input;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using maui_CarListApp.Models;
 using maui_CarListApp.Services;
 using System.Collections.ObjectModel;
@@ -8,6 +9,8 @@ namespace maui_CarListApp.ViewModels
 {
     public partial class CarListViewModel : BaseViewModel
     {
+        [ObservableProperty]
+        bool isRefreshing;
         private readonly CarService carService;
         public ObservableCollection<Car> Cars { get; set; } = new ObservableCollection<Car>();
         public CarListViewModel(CarService carService)
@@ -35,6 +38,7 @@ namespace maui_CarListApp.ViewModels
             }
             finally
             {
+                IsRefreshing = false;
                 IsLoading = false;
             }
         }
